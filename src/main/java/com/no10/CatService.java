@@ -40,4 +40,17 @@ public class CatService {
         return catMapper.findAll();
     }
 
+    public Cat insert(String name, String sex, Integer age) throws CatNotFoundException {
+
+        if (name.isEmpty())
+            throw new CatNotFoundException("名前を入力してください。");
+        if (sex.isEmpty())
+            throw new CatNotFoundException("性別を入力してください。");
+        if (age == null)
+            throw new CatNotFoundException("年齢を入力してください。");
+
+        Cat cat = new Cat(name, sex, age);
+        catMapper.insert(cat);
+        return cat;
+    }
 }

@@ -21,7 +21,9 @@ public interface CatMapper {
     @Select({"SELECT * FROM cats WHERE age = #{age}"})
     List<Cat> findByAge(Integer age);
 
-
+    @Insert("INSERT INTO cats (name, sex,age) VALUES (#{name}, #{sex}, #{age})")
+    @Options(useGeneratedKeys = true, keyProperty = "id")
+    void insert(Cat cat);
 }
 
 

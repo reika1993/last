@@ -31,4 +31,11 @@ public class CatController {
 
     }
 
+    @PostMapping("/cats")
+    public ResponseEntity<CatResponse> insert(@RequestBody CatRequest catRequest, UriComponentsBuilder uriBuilder) {
+        Cat cat = catService.insert(catRequest.getName(), catRequest.getSex(), catRequest.getAge());
+        URI location = uriBuilder.path("/cats").buildAndExpand(cat.getId()).toUri();
+        CatResponse body = new CatResponse("cat.created");
+        return ResponseEntity.created(location).body(body);
+    }
 }
