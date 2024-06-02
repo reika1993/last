@@ -40,34 +40,20 @@ public class CatService {
         return catMapper.findAll();
     }
 
-    public Cat insert(String name, String sex, Integer age) throws CatNotFoundException {
+    public Cat insert(String name, String sex, Integer age) throws NotEnteredException {
 
         if (name.isEmpty())
-            throw new CatNotFoundException("名前を入力してください。");
+            throw new NotEnteredException("名前を入力してください。");
         if (sex.isEmpty())
-            throw new CatNotFoundException("性別を入力してください。");
+            throw new NotEnteredException("性別を入力してください。");
         if (age == null)
-            throw new CatNotFoundException("年齢を入力してください。");
+            throw new NotEnteredException("年齢を入力してください。");
 
         Cat cat = new Cat(name, sex, age);
         catMapper.insert(cat);
         return cat;
     }
 
-    public Cat update(String name, String sex, Integer age) throws CatNotFoundException {
-        List<Cat> catsByName = catMapper.findByName(name);
-        if (catsByName.isEmpty()) {
-            throw new CatNotFoundException(name + "という名前のねこはいません。");
-        }
-        if (sex.isEmpty()) {
-            throw new CatNotFoundException("性別を入力してください。");
-        }
-        if (age == null) {
-            throw new CatNotFoundException("年齢を入力してください。");
-        }
-        Cat cat = new Cat(name, sex, age);
-        catMapper.update(cat);
-        return cat;
-    }
+
 }
 

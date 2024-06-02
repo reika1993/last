@@ -22,8 +22,5 @@ public interface CatMapper {
     @Options(useGeneratedKeys = true, keyProperty = "id")
     void insert(Cat cat);
 
-    @Update("UPDATE cats SET sex=#{sex},age = #{age} WHERE name = #{name}")
-    void update(Cat cat);
-
 
 }

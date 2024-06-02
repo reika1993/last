@@ -41,10 +41,5 @@ public class CatController {
         return ResponseEntity.created(location).body(body);
     }
 
-    @PutMapping("/cats/{name}")
-    public CatResponse update(@PathVariable String name, @RequestBody @Validated CatRequest catRequest)
-            throws CatNotFoundException {
-        catService.update(name, catRequest.getSex(), catRequest.getAge());
-        return new CatResponse("Cat updated");
-    }
+   
 }
