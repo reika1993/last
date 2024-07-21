@@ -1,9 +1,15 @@
 package com.no10;
 
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 public class CatRequest {
+    @NotBlank(message = "名前は必須項目です。")
     private String name;
+    @NotBlank(message = "性別は必須項目です。")
     private String sex;
+    @NotNull(message = "年齢は必須項目です。")
     private Integer age;
 
 
@@ -27,5 +33,3 @@ public class CatRequest {
 
 
 }
-
-
