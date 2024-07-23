@@ -8,10 +8,10 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 @RestController
+@Validated
 public class CatController {
     private final CatService catService;
 
@@ -34,8 +34,12 @@ public class CatController {
     }
 
     @PostMapping("/cats")
-    public Map<String, String> insertCat(@RequestBody @Validated CatRequest catRequest) {
-        return Map.of("status", String.valueOf(HttpStatus.CREATED),
-                "message", "successfully created");
+    public ResponseEntity<CatResponse> insert(@RequestBody CatRequest catRequest, UriComponentsBuilder uriBuilder) {
+        Cat cat = catService.insert(catRequest.getName(), catRequest.getSex(), catRequest.getAge());
+        URI location = uriBuilder.path("/cats").buildAndExpand(cat.getId()).toUri();
+        CatResponse body = new CatResponse("Cat created");
+        return ResponseEntity.created(location).body(body);
     }
+
+   
 }

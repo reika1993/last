@@ -1,4 +1,3 @@
-
 package com.no10;
 
 import org.springframework.boot.SpringApplication;

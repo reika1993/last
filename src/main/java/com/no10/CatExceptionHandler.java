@@ -12,7 +12,7 @@ import java.util.Map;
 @ControllerAdvice
 public class CatExceptionHandler {
     @ExceptionHandler({CatNotFoundException.class})
-    public ResponseEntity CatNotFoundException(
+    public ResponseEntity<Map<String, String>> handleCatNotFoundException(
             CatNotFoundException e, HttpServletRequest request) {
         Map<String, String> body = Map.of(
                 "timestamp", ZonedDateTime.now().toString(),
@@ -23,3 +23,4 @@ public class CatExceptionHandler {
         return new ResponseEntity(body, HttpStatus.NOT_FOUND);
     }
 }
+
