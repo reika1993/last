@@ -38,4 +38,12 @@ public class CatController {
         return Map.of("status", String.valueOf(HttpStatus.CREATED),
                 "message", "successfully created");
     }
+
+    @PatchMapping("/cats/{name}")
+    public Map<String, String> updateCat(@PathVariable String name, @RequestBody @Validated CatRequest catRequest) throws CatNotFoundException {
+        catService.updateCat(name, catRequest.getSex(), catRequest.getAge());
+        return Map.of("status", String.valueOf(HttpStatus.OK),
+                "message", "successfully updated");
+    }
 }
+
