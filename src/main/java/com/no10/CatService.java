@@ -1,12 +1,10 @@
 package com.no10;
 
-import ch.qos.logback.core.joran.spi.ConsoleTarget;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
-
-import static ch.qos.logback.core.joran.spi.ConsoleTarget.findByName;
 
 @Service
 public class CatService {

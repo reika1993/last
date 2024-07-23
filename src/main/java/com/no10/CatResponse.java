@@ -1,10 +1,6 @@
 package com.no10;
 
 
-import org.springframework.http.HttpStatus;
-
-import java.util.Map;
-
 public class CatResponse {
     private String message;
 
