@@ -40,20 +40,10 @@ public class CatService {
         return catMapper.findAll();
     }
 
-    public Cat insert(String name, String sex, Integer age) throws NotEnteredException {
-
-        if (name.isEmpty())
-            throw new NotEnteredException("名前を入力してください。");
-        if (sex.isEmpty())
-            throw new NotEnteredException("性別を入力してください。");
-        if (age == null)
-            throw new NotEnteredException("年齢を入力してください。");
-
+    public Cat insertCat(String name, String sex, Integer age) {
         Cat cat = new Cat(name, sex, age);
         catMapper.insert(cat);
         return cat;
+
     }
-
-
 }
-
