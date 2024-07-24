@@ -22,5 +22,13 @@ public interface CatMapper {
     @Options(useGeneratedKeys = true, keyProperty = "id")
     void insert(Cat cat);
 
+    @Select("SELECT COUNT(*) FROM cats WHERE sex = #{sex}")
+    int countBySex(String sex);
 
+    @Select("SELECT COUNT(*) FROM cats WHERE age = #{age}")
+    int countByAge(Integer age);
+
+    @Update("UPDATE cats SET sex=#{sex},age = #{age} WHERE name = #{name}")
+    int update(Cat cat);
 }
+

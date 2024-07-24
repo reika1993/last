@@ -1,12 +1,9 @@
 package com.no10;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriComponentsBuilder;
 
-import java.net.URI;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -38,4 +35,12 @@ public class CatController {
         return Map.of("status", String.valueOf(HttpStatus.CREATED),
                 "message", "successfully created");
     }
+
+    @PatchMapping("/cats/{name}")
+    public Map<String, String> updateCat(@PathVariable String name, @RequestBody @Validated CatRequest catRequest) throws CatNotFoundException {
+        catService.updateCat(name, catRequest.getSex(), catRequest.getAge());
+        return Map.of("status", String.valueOf(HttpStatus.OK),
+                "message", "successfully updated");
+    }
 }
+

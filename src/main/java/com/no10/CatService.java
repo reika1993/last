@@ -1,5 +1,6 @@
 package com.no10;
 
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -45,5 +46,14 @@ public class CatService {
         catMapper.insert(cat);
         return cat;
 
+    }
+
+    public Cat updateCat(String name, String sex, Integer age) throws CatNotFoundException {
+        List<Cat> catsByName = catMapper.findByName(name);
+        if (catsByName.isEmpty())
+            throw new CatNotFoundException(name + "という名前のねこはいません。");
+        Cat cat = new Cat(name, sex, age);
+        catMapper.update(cat);
+        return cat;
     }
 }

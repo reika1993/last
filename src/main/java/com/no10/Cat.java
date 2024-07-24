@@ -18,11 +18,15 @@ public class Cat {
     }
 
     public Cat(String name, String sex, Integer age) {
-        this.id = null;
         this.name = name;
         this.sex = sex;
         this.age = age;
 
+    }
+
+    public Cat(String sex, Integer age) {
+        this.sex = sex;
+        this.age = age;
     }
 
     public Integer getId() {
