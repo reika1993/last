@@ -56,4 +56,11 @@ public class CatService {
         catMapper.update(cat);
         return cat;
     }
+
+    public void deleteCat(String name) throws CatNotFoundException {
+        List<Cat> catsByName = catMapper.findByName(name);
+        if (catsByName.isEmpty())
+            throw new CatNotFoundException(name + "という名前のねこはいません。");
+        catMapper.delete(name);
+    }
 }

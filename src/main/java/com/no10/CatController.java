@@ -1,5 +1,6 @@
 package com.no10;
 
+import org.apache.ibatis.annotations.Delete;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -41,6 +42,14 @@ public class CatController {
         catService.updateCat(name, catRequest.getSex(), catRequest.getAge());
         return Map.of("status", String.valueOf(HttpStatus.OK),
                 "message", "successfully updated");
+    }
+
+    @DeleteMapping("/cats/{name}")
+    public Map<String, String> deleteCat(@PathVariable String name) throws CatNotFoundException {
+        catService.deleteCat(name);
+        return Map.of("status", String.valueOf(HttpStatus.OK),
+                "message", "successfully deleted");
+
     }
 }
 

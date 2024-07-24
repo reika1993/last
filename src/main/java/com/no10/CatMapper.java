@@ -29,6 +29,9 @@ public interface CatMapper {
     int countByAge(Integer age);
 
     @Update("UPDATE cats SET sex=#{sex},age = #{age} WHERE name = #{name}")
-    int update(Cat cat);
+    void update(Cat cat);
+
+    @Delete("DELETE from cats WHERE name = #{name}")
+    void delete(String name);
 }
 
