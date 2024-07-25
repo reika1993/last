@@ -11,7 +11,7 @@ mysql> select * from cats;
 +----+--------+--------+-----+
 | id | name   | sex    | age |
 +----+--------+--------+-----+
-|  1 | Omochi | female |  10 |
+|  1 | Omochi | female |   3 |
 |  2 | Coa    | male   |   3 |
 |  3 | Gonchi | male   |   5 |
 +----+--------+--------+-----+
