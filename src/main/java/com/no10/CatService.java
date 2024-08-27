@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Stack;
 
 @Service
 public class CatService {
@@ -14,8 +15,11 @@ public class CatService {
         this.catMapper = catMapper;
     }
 
+    public List<Cat> findAll() {
+        return this.catMapper.findAll();
+    }
 
-    public List<Cat> findCat(String name, String sex, Integer age) throws CatNotFoundException {
+    public static List<Cat> findCat(String name, String sex, Integer age) throws CatNotFoundException {
 
         if (Objects.nonNull(name)) {
             List<Cat> catsByName = catMapper.findByName(name);

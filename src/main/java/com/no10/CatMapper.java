@@ -6,6 +6,7 @@ import java.util.List;
 
 @Mapper
 public interface CatMapper {
+
     @Select("SELECT * FROM cats")
     List<Cat> findAll();
 
@@ -33,5 +34,7 @@ public interface CatMapper {
 
     @Delete("DELETE from cats WHERE name = #{name}")
     void delete(String name);
+
 }
+
 
