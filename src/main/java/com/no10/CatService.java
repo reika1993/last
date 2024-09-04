@@ -15,9 +15,9 @@ public class CatService {
         this.catMapper = catMapper;
     }
 
-    public List<Cat> findAll() {
-        return this.catMapper.findAll();
-    }
+    //public List<Cat> findAll() {
+    //  return this.catMapper.findAll();
+    //}
 
     public static List<Cat> findCat(String name, String sex, Integer age) throws CatNotFoundException {
 
@@ -33,7 +33,7 @@ public class CatService {
         if (Objects.nonNull(sex)) {
             List<Cat> catsBySex = catMapper.findBySex(sex);
             if (catsBySex.isEmpty()) {
-                throw new CatNotFoundException("オスかメスを入力してください.");
+                throw new CatNotFoundException("現在、性別が" + sex + "のねこはいません。");
             }
             return catsBySex;
         }
@@ -41,7 +41,7 @@ public class CatService {
         if (Objects.nonNull(age)) {
             List<Cat> catsByAge = catMapper.findByAge(age);
             if (catsByAge.isEmpty()) {
-                throw new CatNotFoundException("現在" + age + "才のねこはいません。");
+                throw new CatNotFoundException("現在、" + age + "才のねこはいません。");
             }
             return catsByAge;
         }

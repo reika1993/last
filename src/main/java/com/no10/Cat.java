@@ -1,8 +1,5 @@
 package com.no10;
 
-
-import java.util.List;
-
 public class Cat {
     private Integer id;
 
@@ -10,6 +7,14 @@ public class Cat {
 
     private String sex;
     private Integer age;
+
+    public Cat(Integer id, String name, String sex, Integer age) {
+        this.id = id;
+        this.name = name;
+        this.sex = sex;
+        this.age = age;
+
+    }
 
     public Cat(String name, String sex, Integer age) {
         this.name = name;
