@@ -17,7 +17,6 @@ public class CatController {
         this.catService = catService;
     }
 
-
     @GetMapping("/cats")
     public List<Cat> getCat(
             @RequestParam(required = false) String name,

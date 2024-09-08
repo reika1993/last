@@ -8,7 +8,6 @@ public class Cat {
     private String sex;
     private Integer age;
 
-
     public Cat(Integer id, String name, String sex, Integer age) {
         this.id = id;
         this.name = name;
@@ -22,11 +21,6 @@ public class Cat {
         this.sex = sex;
         this.age = age;
 
-    }
-
-    public Cat(String sex, Integer age) {
-        this.sex = sex;
-        this.age = age;
     }
 
     public Integer getId() {
@@ -44,6 +38,5 @@ public class Cat {
     public Integer getAge() {
         return age;
     }
-
 
 }
