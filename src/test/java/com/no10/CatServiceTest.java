@@ -1,5 +1,6 @@
 package com.no10;
 
+import com.jayway.jsonpath.spi.mapper.TapestryMappingProvider;
 import org.hamcrest.Matcher;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -9,6 +10,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.*;
 
+import static java.util.Collections.emptyList;
 import static java.util.Optional.empty;
 import static java.util.Optional.of;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -16,12 +18,13 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.result.StatusResultMatchersExtensionsKt.isEqualTo;
 import static org.springframework.util.CollectionUtils.isEmpty;
 
 
 @ExtendWith(MockitoExtension.class)
 class CatServiceTest {
-    private static final String NOT_FOUND_NAME = "Tama";
+
     @Mock
     private CatMapper catMapper;
 
@@ -68,6 +71,21 @@ class CatServiceTest {
     }
 
     @Test
+    public void 存在しないねこの名前を検索した場合に例外処理されること() {
+        String NOT_FOUND_NAME = "Tama";
+        when(catMapper.findByName(NOT_FOUND_NAME)).thenReturn(emptyList());
+
+        //テストメソッドの呼び出しと例外の確認
+        CatNotFoundException thrown = assertThrows(CatNotFoundException.class, () ->
+                catService.findCat(NOT_FOUND_NAME, null, null));
+
+        //例外メッセージ
+        final String exceptedMessage = NOT_FOUND_NAME + "という名前のねこは存在しません。";
+        assertThat(thrown.getMessage()).isEqualTo(exceptedMessage);
+    }
+
+
+    @Test
     public void 存在するねこの性別を検索した場合にねこの情報が取得されること() {
         List<Cat> cats = List.of(new Cat("Omochi", "female", 2));
         when(catMapper.findBySex("female")).thenReturn(cats);
@@ -89,6 +107,18 @@ class CatServiceTest {
     }
 
     @Test
+    public void 存在しないねこの性別を検索した場合に例外処理されること() {
+        String NOT_FOUND_SEX = "femaleee";
+        when(catMapper.findBySex(NOT_FOUND_SEX)).thenReturn(emptyList());
+
+        CatNotFoundException thrown = assertThrows(CatNotFoundException.class, () ->
+                catService.findCat(null, NOT_FOUND_SEX, null));
+
+        final String exceptedMessage = "現在、性別が" + NOT_FOUND_SEX + "のねこはいません。";
+        assertThat(thrown.getMessage()).isEqualTo(exceptedMessage);
+    }
+
+    @Test
     public void 存在するねこの年齢を検索した場合にねこの情報が取得されること() {
         List<Cat> cats = List.of(new Cat("Omochi", "female", 2));
         when(catMapper.findByAge(2)).thenReturn(cats);
@@ -107,6 +137,18 @@ class CatServiceTest {
         }, "404 NOT_FOUND");
         assertThat(exception.getMessage()).isEqualTo(errorMessage);
         verify(catMapper).findByAge(catNotFoundAge);
+    }
+
+    @Test
+    public void 存在しないねこの年齢を検索した場合に例外処理されること() {
+        Integer NOT_FOUND_AGE = 99;
+        when(catMapper.findByAge(NOT_FOUND_AGE)).thenReturn(emptyList());
+
+        CatNotFoundException thrown = assertThrows(CatNotFoundException.class, () ->
+                catService.findCat(null, null, NOT_FOUND_AGE));
+
+        final String exceptedMessage = "現在、" + NOT_FOUND_AGE + "才のねこはいません。";
+        assertThat(thrown.getMessage()).isEqualTo(exceptedMessage);
 
     }
 }
