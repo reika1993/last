@@ -1,5 +1,7 @@
 package com.no10;
 
+import jakarta.validation.constraints.NotNull;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -10,7 +12,9 @@ import java.util.*;
 
 import static java.util.Collections.emptyList;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
 
 
@@ -141,7 +145,34 @@ class CatServiceTest {
 
         final String exceptedMessage = "現在、" + catNotFoundAge + "才のねこはいません。";
         assertThat(thrown.getMessage()).isEqualTo(exceptedMessage);
+    }
 
+    @Test
+    public void 新しいねこの情報を登録できること() {
+        Cat cat = new Cat("Tama", "female", 0);
+        assertThat(catService.insertCat("Tama", "female", 0)).isEqualTo(cat);
+        verify(catMapper).insert(cat);
+
+    }
+
+    @Test
+    public void 指定したねこの更新ができること() {
+        Cat cat = new Cat("Omochi", "female", 3);
+        Cat newCat = new Cat("Omochi", "female", 4);
+        given(catMapper.findByName(cat.getName())).willReturn(List.of(cat));
+        catService.updateCat(cat.getName(), cat.getSex(), newCat.getAge());
+        verify(catMapper).update(newCat);
+    }
+
+    @Test
+    public void 更新時に該当する名前のねこがいないときCatNotFoundExceptionとなること() {
+        Cat cat = new Cat("Omochi", "female", 3);
+        Cat newCat = new Cat("Omochi", "female", 4);
+        given(catMapper.findByName(cat.getName())).willReturn(List.of(cat));
+        catService.updateCat(cat.getName(), cat.getSex(), newCat.getAge());
+        assertThatThrownBy(() -> {
+            CatService.findCat("unknown", null, null);
+        }).isInstanceOf(CatNotFoundException.class);
     }
 }
 

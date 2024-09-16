@@ -36,5 +36,3 @@ public interface CatMapper {
     void delete(String name);
 
 }
-
-
