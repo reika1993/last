@@ -1,5 +1,7 @@
 package com.no10;
 
+import com.zaxxer.hikari.HikariConfig;
+import jakarta.validation.ConstraintViolation;
 import jakarta.validation.constraints.NotNull;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -16,7 +18,6 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
-
 
 @ExtendWith(MockitoExtension.class)
 class CatServiceTest {
@@ -175,5 +176,3 @@ class CatServiceTest {
         }).isInstanceOf(CatNotFoundException.class);
     }
 }
-
-

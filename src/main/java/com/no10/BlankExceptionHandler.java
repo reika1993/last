@@ -23,8 +23,5 @@ public class BlankExceptionHandler {
                 "path", request.getRequestURI());
         return new ResponseEntity(errors, HttpStatus.BAD_REQUEST);
     }
-
-    public boolean getMessage() {
-        return false;
-    }
+    
 }
