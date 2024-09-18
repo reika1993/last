@@ -32,6 +32,7 @@ public class CatController {
 
     @PostMapping("/cats")
     public Map<String, String> insertCat(@RequestBody @Validated CatRequest catRequest) {
+        catService.insertCat(catRequest.getName(), catRequest.getSex(), catRequest.getAge());
         return Map.of("status", String.valueOf(HttpStatus.CREATED),
                 "message", "successfully created");
     }
@@ -51,4 +52,3 @@ public class CatController {
 
     }
 }
-
