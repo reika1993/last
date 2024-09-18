@@ -1,9 +1,5 @@
 package com.no10;
 
-import com.zaxxer.hikari.HikariConfig;
-import jakarta.validation.ConstraintViolation;
-import jakarta.validation.constraints.NotNull;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -11,6 +7,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.*;
+
 
 import static java.util.Collections.emptyList;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -175,4 +172,24 @@ class CatServiceTest {
             CatService.findCat("unknown", null, null);
         }).isInstanceOf(CatNotFoundException.class);
     }
-}
+
+    @Test
+    public void 指定したねこの情報を削除できること() {
+        Cat cat = new Cat("Omochi", "female", 3);
+        when(catMapper.findByName(cat.getName())).thenReturn(List.of(cat));
+        catService.deleteCat("Omochi");
+        verify(catMapper).delete("Omochi");
+    }
+
+    @Test
+    public void 指定したねこの名前がないときCatNotFoundExceptionとなること() {
+        Cat cat = new Cat("unknown", null, null);
+        when(catMapper.findByName(cat.getName())).thenReturn(emptyList());
+        assertThatThrownBy(() -> {
+            CatService.findCat("unknown", null, null);
+        }).isInstanceOf(CatNotFoundException.class);
+
+
+    }
+};
+
