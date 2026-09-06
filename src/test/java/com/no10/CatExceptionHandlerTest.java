@@ -20,7 +20,7 @@ class CatExceptionHandlerTest {
     private HttpServletRequest request;
 
     @Test
-    void CatNotFoundExceptionを404レスポンスに変換できること() {
+    void catNotFoundExceptionReturnsNotFoundResponse() {
         CatExceptionHandler handler = new CatExceptionHandler();
         CatNotFoundException exception = new CatNotFoundException("Omochiという名前のねこはいません。");
         when(request.getRequestURI()).thenReturn("/cats/Omochi");
