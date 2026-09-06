@@ -169,7 +169,7 @@ class CatServiceTest {
         given(catMapper.findByName(cat.getName())).willReturn(List.of(cat));
         catService.updateCat(cat.getName(), cat.getSex(), newCat.getAge());
         assertThatThrownBy(() -> {
-            CatService.findCat("unknown", null, null);
+            catService.findCat("unknown", null, null);
         }).isInstanceOf(CatNotFoundException.class);
     }
 
@@ -186,7 +186,7 @@ class CatServiceTest {
         Cat cat = new Cat("unknown", null, null);
         when(catMapper.findByName(cat.getName())).thenReturn(emptyList());
         assertThatThrownBy(() -> {
-            CatService.findCat("unknown", null, null);
+            catService.findCat("unknown", null, null);
         }).isInstanceOf(CatNotFoundException.class);
 
 
