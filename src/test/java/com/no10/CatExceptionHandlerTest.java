@@ -25,7 +25,7 @@ class CatExceptionHandlerTest {
         CatNotFoundException exception = new CatNotFoundException("Omochiという名前のねこはいません。");
         when(request.getRequestURI()).thenReturn("/cats/Omochi");
 
-        ResponseEntity<?> response = handler.CatNotFoundException(exception, request);
+        ResponseEntity<?> response = handler.catNotFoundException(exception, request);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
         assertThat(response.getBody()).isInstanceOf(Map.class);
