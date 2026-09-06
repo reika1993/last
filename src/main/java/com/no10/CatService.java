@@ -9,7 +9,7 @@ import java.util.Stack;
 
 @Service
 public class CatService {
-    private static CatMapper catMapper;
+    private final CatMapper catMapper;
 
     public CatService(CatMapper catMapper) {
         this.catMapper = catMapper;
@@ -19,7 +19,7 @@ public class CatService {
     //  return this.catMapper.findAll();
     //}
 
-    public static List<Cat> findCat(String name, String sex, Integer age) throws CatNotFoundException {
+    public List<Cat> findCat(String name, String sex, Integer age) throws CatNotFoundException {
 
         if (Objects.nonNull(name)) {
             List<Cat> catsByName = catMapper.findByName(name);

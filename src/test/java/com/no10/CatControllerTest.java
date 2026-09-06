@@ -23,7 +23,7 @@ class CatControllerTest {
     private CatService catService;
 
     @Test
-    void 全てのねこの情報を取得できること() throws Exception {
+    void getAll() throws Exception {
         List<Cat> cats = List.of(
                 new Cat("Omochi", "female", 2),
                 new Cat("Coa", "male", 3)
@@ -42,7 +42,7 @@ class CatControllerTest {
     }
 
     @Test
-    void 名前でねこを検索できること() throws Exception {
+    void searchByName() throws Exception {
         List<Cat> cats = List.of(
                 new Cat("Omochi", "female", 2)
         );
@@ -58,7 +58,7 @@ class CatControllerTest {
     }
 
     @Test
-    void 性別でねこを検索できること() throws Exception {
+    void searchByGender() throws Exception {
         List<Cat> cats = List.of(
                 new Cat("Omochi", "female", 2)
         );
@@ -74,7 +74,7 @@ class CatControllerTest {
     }
 
     @Test
-    void 年齢でねこを検索できること() throws Exception {
+    void searchByAge() throws Exception {
         List<Cat> cats = List.of(
                 new Cat("Omochi", "female", 2)
         );
@@ -90,12 +90,16 @@ class CatControllerTest {
     }
 
     @Test
-    void 存在しない名前で検索するとエラーになること() throws Exception {
+    void searchByNameDoesNotExist() throws Exception {
         when(catService.findCat("Tama", null, null))
                 .thenThrow(new CatNotFoundException("Tamaという名前のねこは存在しません。"));
 
         mockMvc.perform(get("/cats")
                         .param("name", "Tama"))
-                .andExpect(status().isNotFound());
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.status").value("404"))
+                .andExpect(jsonPath("$.error").value("Not Found"))
+                .andExpect(jsonPath("$.message").value("Tamaという名前のねこは存在しません。"))
+                .andExpect(jsonPath("$.path").value("/cats"));
     }
 }
