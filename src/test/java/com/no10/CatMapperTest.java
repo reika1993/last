@@ -16,31 +16,34 @@ public class CatMapperTest {
     private CatMapper catMapper;
 
     @Test
-    public void 全てのねこを取得できること() {
+    public void getAllCat() {
         List<Cat> cats = catMapper.findAll();
         assertEquals(4, cats.size(), "実際に取得した件数：" + cats.size());
     }
 
-    public void 名前を指定してねこを取得できること() {
+    @Test
+    public void findCatByName() {
         List<Cat> cats = catMapper.findByName("Omochi");
         assertEquals(1, cats.size());
         assertEquals("Omochi", cats.get(0).getName());
     }
 
-    public void 性別を指定してねこを取得できること() {
+    @Test
+    public void findCatBySex() {
         List<Cat> cats = catMapper.findBySex("male");
         assertEquals(3, cats.size());
         assertEquals("male", cats.get(0).getSex());
     }
 
-    public void 年齢を指定して猫を取得できること() {
+    @Test
+    public void findCatByAge() {
         List<Cat> cats = catMapper.findByAge(3);
         assertEquals(1, cats.size());
         assertEquals(3, cats.get(0).getAge());
     }
 
     @Test
-    public void ねこを登録できること() {
+    public void registerCat() {
         Cat cat = new Cat("Tama", "female", 2);
         catMapper.insert(cat);
 
@@ -54,18 +57,19 @@ public class CatMapperTest {
     }
 
     @Test
-    public void 性別を指定してねこの数を取得できること() {
+    public void countCatBySex() {
         int count = catMapper.countBySex("male");
         assertEquals(3, count);
     }
 
-    public void 年齢を指定してねこの数を取得できること() {
+    @Test
+    public void countCatByAge() {
         int count = catMapper.countByAge(3);
         assertEquals(1, count);
     }
 
     @Test
-    public void 指定したねこの更新ができること() {
+    public void updateCatByName() {
         Cat cat = new Cat("Omochi", "male", 3);
 
         catMapper.update(cat);
@@ -88,7 +92,7 @@ public class CatMapperTest {
     }
 
     @Test
-    public void 指定した名前のねこを削除できること() {
+    public void deleteCatByName() {
         catMapper.delete("Katsuo");
         List<Cat> cats = catMapper.findByName("Katsuo");
 
