@@ -7,7 +7,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
@@ -55,7 +54,6 @@ public class CatMapperTest {
         assertEquals("female", cats.get(0).getSex());
         assertEquals(2, cats.get(0).getAge());
 
-        catMapper.delete("Tama");
     }
 
     @Test
@@ -83,14 +81,6 @@ public class CatMapperTest {
         assertEquals("male", cats.get(0).getSex());
         assertEquals(3, cats.get(0).getAge());
 
-        Cat originalCat = new Cat("Omochi", "female", 2);
-        catMapper.update(originalCat);
-
-        cats = catMapper.findByName("Omochi");
-        assertEquals(1, cats.size());
-        assertEquals("Omochi", cats.get(0).getName());
-        assertEquals("female", cats.get(0).getSex());
-        assertEquals(2, cats.get(0).getAge());
     }
 
     @Test
@@ -100,7 +90,5 @@ public class CatMapperTest {
 
         assertEquals(0, cats.size());
 
-        Cat cat = new Cat("Katsuo", "male", 6);
-        catMapper.insert(cat);
     }
 }
