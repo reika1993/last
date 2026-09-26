@@ -1,7 +1,9 @@
-FROM mysql:8.0-debian
-RUN apt-get update
-RUN apt-get -y install locales-all
-ENV LANG ja_JP.UTF-8
-ENV LANGUAGE ja_JP:ja
-ENV LC_ALL ja_JP.UTF-8
-COPY ./conf/mysql/my.cnf /etc/my.cnf
+FROM eclipse-temurin:17-jre
+
+        WORKDIR /app
+
+        COPY build/libs/no.10-0.0.1-SNAPSHOT.jar app.jar
+
+        EXPOSE 8080
+
+        ENTRYPOINT ["java", "-jar", "app.jar"]
